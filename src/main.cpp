@@ -6,6 +6,7 @@ using namespace std;
 
 int position(int s, vector<int> pci);
 map<int, vector<int>> gale_shapley(vector<int> S, vector<int> C, map<int, vector<int>> PS, map<int, vector<int>> PC);
+void print_result(map<int, vector<int>> res);
 
 int main()
 {
@@ -14,25 +15,23 @@ int main()
 	// vector<int> C: vector of classes capacity
 	// map<int, vector<int>> PS: Students preferences
 	// map<int, vector<int>> PC: Classes preferences
-	vector<int> S{0, 1, 2};
-	vector<int> C{1, 1, 1};
+	vector<int> S{0, 1, 2, 3, 4, 5};
+	vector<int> C{2, 4};
 
 	map<int, vector<int>> PS = {
-		{0, {1, 0, 2}},
-		{1, {0, 1, 2}},
-		{2, {0, 1, 2}}};
+		{0, {1, 0}},
+		{1, {0, 1}},
+		{2, {0, 1}},
+		{3, {1, 0}},
+		{4, {1, 0}},
+		{5, {1, 0}}};
 	map<int, vector<int>> PC = {
-		{0, {0, 2, 1}},
-		{1, {1, 0, 2}},
-		{2, {2, 0, 1}}};
+		{0, {0, 5, 2, 4, 3, 1}},
+		{1, {1, 5, 2, 3, 0, 4}}};
 
 	map<int, vector<int>> affectation = gale_shapley(S, C, PS, PC);
 
-	for (unsigned int i = 0; i < 3; i++)
-	{
-		//printf("%d : %d\n", affectation[i], affectation[i][0]);
-		cout << i << "; " << affectation[i][0] << endl;
-	}
+	print_result(affectation);
 	return 0;
 }
 
@@ -54,7 +53,7 @@ map<int, vector<int>> gale_shapley(vector<int> S, vector<int> C, map<int, vector
 {
 	// Initialization:
 	map<int, vector<int>> affectation; // result
-	for (unsigned int i = 0; i < S.size(); i++)
+	for (unsigned int i = 0; i < C.size(); i++)
 	{
 		affectation[i] = {};
 	}
@@ -66,7 +65,7 @@ map<int, vector<int>> gale_shapley(vector<int> S, vector<int> C, map<int, vector
 	{						// while there is allways non affected student then do
 		s = *freeS.begin(); // select first student in the list
 		cout << "Student : " << s << "------------------------------------------------------------------------------------------"<< endl;
-		affected = false; // set affected as false, (the student s;
+		affected = false; // set affected as false, (the student
 		for (unsigned int i = 0; i < PS[s].size(); i++)
 		{ // select the classes frome the most desired to the least desired, we suppose that the preferece list is ordered like that
 			cout << "Class : " << PS[s][i] << "---------------------------------------------------------------------------------" << endl;
@@ -105,4 +104,17 @@ map<int, vector<int>> gale_shapley(vector<int> S, vector<int> C, map<int, vector
 		}
 	}
 	return affectation;
+}
+
+void print_result(map<int, vector<int>> res)
+{
+	for ( unsigned int i = 0; i < res.size(); i++)
+	{
+		cout << i << "\t:\t";
+		for (unsigned int j = 0; j < res[i].size(); j++)
+		{
+			cout << res[i][j] << " ";
+		}
+		cout << endl;
+	}
 }
