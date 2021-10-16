@@ -24,10 +24,12 @@ int main()
 		{2, {0, 1}},
 		{3, {1, 0}},
 		{4, {1, 0}},
-		{5, {1, 0}}};
+		{5, {1, 0}}
+	};
 	map<int, vector<int>> PC = {
 		{0, {0, 5, 2, 4, 3, 1}},
-		{1, {1, 5, 2, 3, 0, 4}}};
+		{1, {1, 5, 2, 3, 0, 4}}
+	};
 
 	map<int, vector<int>> affectation = gale_shapley(S, C, PS, PC);
 
@@ -38,7 +40,7 @@ int main()
 int position(int s, vector<int> pci)
 {
 	int pps = -1;
-	for (unsigned int j = 0; j < pci.size(); j++)
+	for (int j = 0; j < pci.size(); j++)
 	{
 		if (pci[j] == s)
 		{
@@ -53,7 +55,7 @@ map<int, vector<int>> gale_shapley(vector<int> S, vector<int> C, map<int, vector
 {
 	// Initialization:
 	map<int, vector<int>> affectation; // result
-	for (unsigned int i = 0; i < C.size(); i++)
+	for (int i = 0; i < C.size(); i++)
 	{
 		affectation[i] = {};
 	}
@@ -66,7 +68,7 @@ map<int, vector<int>> gale_shapley(vector<int> S, vector<int> C, map<int, vector
 		s = *freeS.begin(); // select first student in the list
 		cout << "Student : " << s << "------------------------------------------------------------------------------------------"<< endl;
 		affected = false; // set affected as false, (the student
-		for (unsigned int i = 0; i < PS[s].size(); i++)
+		for (int i = 0; i < PS[s].size(); i++)
 		{ // select the classes frome the most desired to the least desired, we suppose that the preferece list is ordered like that
 			cout << "Class : " << PS[s][i] << "---------------------------------------------------------------------------------" << endl;
 			if (affectation[PS[s][i]].size() < C[PS[s][i]])
@@ -108,10 +110,10 @@ map<int, vector<int>> gale_shapley(vector<int> S, vector<int> C, map<int, vector
 
 void print_result(map<int, vector<int>> res)
 {
-	for ( unsigned int i = 0; i < res.size(); i++)
+	for (int i = 0; i < res.size(); i++)
 	{
 		cout << i << "\t:\t";
-		for (unsigned int j = 0; j < res[i].size(); j++)
+		for (int j = 0; j < res[i].size(); j++)
 		{
 			cout << res[i][j] << " ";
 		}
